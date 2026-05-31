@@ -1,4 +1,4 @@
-# EggyUI-Site
+# EggyUI-SE-Site
 
 ![Last Commit](https://img.shields.io/github/last-commit/AloneVoyager/EggyUI-SE-Site?label=Last%20Commit)
 
