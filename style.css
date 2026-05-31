@@ -789,6 +789,10 @@ body {
         cursor: default;
     }
 
+    .close-btn {
+        display: none;
+    }
+
     .content-area {
         padding: 16px;
         padding-bottom: 80px;
@@ -930,6 +934,10 @@ body {
         border-radius: 0;
         cursor: default;
         height: 40px;
+    }
+
+    .close-btn {
+        display: none;
     }
 
     .content-area {
