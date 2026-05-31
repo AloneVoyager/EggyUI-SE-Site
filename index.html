@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="蛋仔派对Windows美化包, 蛋仔派对Windows主题, 蛋仔派对Windows, 蛋仔派对 Windows, 蛋仔 Windows, 蛋仔 Win, 蛋仔主题, 蛋仔 主题, EggyUI, Eggy UI, EggyUI-RE, Eggy UI-RE, Eggy UI RE, EggyUI-SE, Eggy UI-SE, Eggy UI SE, OpenEggyUI, Open Eggy UI, Eggix, 蛋仔Win11, 蛋仔派对Win11, EggyUI download, Eggy Party Windows theme, Eggy Party desktop customization, EggyUI legacy, EggyUI archive, Windows 11 Eggy Party, EggyUI components, BSOD-MEMZ">
+    <meta name="description" content="EggyUI-SE 是 EggyUI 分支项目，专注于以**不修改系统核心文件**的方式实现蛋仔派对风格的 Windows 桌面美化。原 EggyUI 项目仓库已归档为 EggyUI-Legacy。项目在核心设计上做出了重要调整：所有美化内容均通过主题包、壁纸、音效等安全方式部署，而非替换系统关键文件（如 imageres.dll.mun）。">
+    <title>EggyUI-SE_蛋仔风 Windows 桌面美化包_蛋仔派对 Windows 桌面美化</title>
+    <script src="redirect.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+    <!-- 主容器 -->
+    <div class="main-container" id="mainContainer">
+        <!-- 标题栏 -->
+        <div class="title-bar" id="titleBar">
+            <div class="title-content">
+                <span class="title-text">EggyUI-SE</span>
+            </div>
+            <button class="close-btn" id="closeBtn" aria-label="关闭">
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                    <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- 内容区域 -->
+        <div class="content-area">
+            <!-- 头部 -->
+            <header class="hero-section">
+                <img src="https://eggyuihub.wordpress.com/wp-content/uploads/2026/04/eggyui-poster.jpg" 
+                     alt="EggyUI 宣传图" 
+                     class="hero-image"
+                     loading="lazy">
+                <h1 class="hero-title">EggyUI-SE</h1>
+                <p class="hero-subtitle">不修改系统核心文件，延续蛋仔视觉美学</p>
+                
+                <div class="badge-container">
+                    <span class="badge">Windows 7 ~ 11 支持</span>
+                    <span class="badge">GPL v3 开源</span>
+                    <a href="https://qm.qq.com/q/DzX7VXZNMQ" target="_blank" class="badge badge-link">QQ群 1090050382</a>
+                </div>
+            </header>
+            
+            <!-- 主要内容 -->
+            <main class="main-content">
+                <!-- 项目介绍 -->
+                <section class="card">
+                    <h2>项目简介</h2>
+                    <p>EggyUI-SE 是 EggyUI 分支项目，专注于以<strong>不修改系统核心文件</strong>的方式实现蛋仔派对风格的 Windows 桌面美化。</p>
+                    <p>所有美化内容均通过主题包、壁纸、音效等安全方式部署，让您无需重装系统即可享受蛋仔风格的视觉体验。</p>
+                </section>
+                
+                <!-- 组件支持 -->
+                <section class="card">
+                    <h2>包含美化组件</h2>
+                    <div class="component-grid">
+                        <div class="component-item">
+                            <div class="component-icon">🎨</div>
+                            <h3>主题包</h3>
+                            <p>Windows 7 ~ Windows 11</p>
+                        </div>
+                        <div class="component-item">
+                            <div class="component-icon">📊</div>
+                            <h3>Rainmeter 小组件</h3>
+                            <p>Windows 10 1607 ~ Windows 11</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 版本对比 -->
+                <section class="card">
+                    <h2>与历史版本的区别</h2>
+                    <div class="comparison-table-wrapper">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>维度</th>
+                                    <th>历史 EggyUI</th>
+                                    <th>EggyUI-SE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>技术栈</td>
+                                    <td>易语言、.NET 8、Python 混合</td>
+                                    <td>.NET 6（统一、稳定）</td>
+                                </tr>
+                                <tr>
+                                    <td>安装方式</td>
+                                    <td>系统镜像、无人值守安装</td>
+                                    <td>独立安装包，可选组件</td>
+                                </tr>
+                                <tr>
+                                    <td>系统文件修改</td>
+                                    <td>替换核心文件</td>
+                                    <td><strong>不修改任何系统文件</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>维护状态</td>
+                                    <td>已停止更新</td>
+                                    <td>持续维护</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- 下载按钮 -->
+                <section class="download-section">
+                    <a href="https://github.com/EggyUI-SE/EggyUI-SE/releases" 
+                       target="_blank" 
+                       class="pill-button primary">
+                        前往 GitHub 下载
+                    </a>
+                    <a href="https://eggyuihub.wordpress.com/" 
+                       target="_blank" 
+                       class="pill-button secondary">
+                        访问 EggyUI Hub
+                    </a>
+                </section>
+            </main>
+            
+            <!-- 页脚 -->
+            <footer class="footer">
+                <p>© 2026 EggyUI-SE 项目 | 非官方粉丝创作 | 遵循 GPL v3 许可证</p>
+            </footer>
+        </div>
+        
+        <!-- 调整大小手柄 -->
+        <div class="resize-handle resize-se" aria-hidden="true"></div>
+        <div class="resize-handle resize-e" aria-hidden="true"></div>
+        <div class="resize-handle resize-s" aria-hidden="true"></div>
+    </div>
+    
+    <!-- 背景音乐控制器 -->
+    <div class="music-player" id="musicPlayer">
+        <button class="music-toggle pill-button" id="musicToggle" aria-label="播放/暂停背景音乐">
+            <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <rect x="6" y="4" width="4" height="16"/>
+                <rect x="14" y="4" width="4" height="16"/>
+            </svg>
+        </button>
+        <div class="volume-control">
+            <input type="range" 
+                   class="volume-slider" 
+                   id="volumeSlider" 
+                   min="0" 
+                   max="100" 
+                   value="50"
+                   aria-label="音量调节">
+        </div>
+    </div>
+    
+    <!-- 背景音乐 -->
+    <audio id="bgm" loop>
+        <source src="audio/bgm.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>

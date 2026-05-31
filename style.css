@@ -1,0 +1,894 @@
+/* ==================== 基础重置 ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==================== 自定义背景 ==================== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/background.jpg') center/cover no-repeat fixed;
+    z-index: -2;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(15, 109, 230, 0.15) 0%,
+        rgba(59, 141, 240, 0.1) 50%,
+        rgba(100, 180, 255, 0.15) 100%
+    );
+    z-index: -1;
+}
+
+/* ==================== 全局样式 ==================== */
+body {
+    font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #1a1a1a;
+    overflow: auto;
+}
+
+/* ==================== 主容器 - 添加出现动画 ==================== */
+.main-container {
+    width: min(900px, 95vw);
+    height: min(700px, 90vh);
+    min-width: 400px;
+    min-height: 500px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 12px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    resize: both;
+
+    /* 出现动画 */
+    animation: containerAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    transform-origin: center center;
+}
+
+/* 容器出现动画关键帧 */
+@keyframes containerAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.85) translateY(30px);
+        filter: blur(10px);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.02) translateY(-5px);
+        filter: blur(0);
+    }
+    70% {
+        transform: scale(0.98) translateY(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* 容器关闭动画（供JavaScript调用） */
+.main-container.closing {
+    animation: containerClose 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes containerClose {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* ==================== 标题栏 ==================== */
+.title-bar {
+    height: 48px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    cursor: move;
+    user-select: none;
+    border-radius: 12px 12px 0 0;
+    flex-shrink: 0;
+    
+    /* 标题栏出现动画 */
+    animation: slideInFromTop 0.5s ease-out 0.2s both;
+}
+
+@keyframes slideInFromTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.title-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-icon {
+    font-size: 18px;
+    /* 图标弹跳动画 */
+    animation: iconBounce 0.6s ease-out 0.6s both;
+}
+
+@keyframes iconBounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.title-text {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1a1a1a;
+    /* 文字渐入动画 */
+    animation: fadeInText 0.5s ease-out 0.4s both;
+}
+
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+        letter-spacing: -2px;
+    }
+    100% {
+        opacity: 1;
+        letter-spacing: normal;
+    }
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: all 0.2s ease;
+    /* 关闭按钮延迟出现 */
+    animation: fadeInButton 0.3s ease-out 0.6s both;
+}
+
+@keyframes fadeInButton {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.close-btn:hover {
+    background: rgba(15, 109, 230, 0.15);
+    color: #0F6DE6;
+    transform: scale(1.05);
+}
+
+.close-btn:active {
+    transform: scale(0.95);
+}
+
+/* ==================== 内容区域 ==================== */
+.content-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 24px;
+    /* 内容区域淡入动画 */
+    animation: contentFadeIn 0.8s ease-out 0.3s both;
+}
+
+@keyframes contentFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 自定义滚动条 */
+.content-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.content-area::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.content-area::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== Hero 区域 ==================== */
+.hero-section {
+    text-align: center;
+    margin-bottom: 32px;
+    /* Hero区域动画 */
+    animation: heroSlideUp 0.8s ease-out 0.5s both;
+}
+
+@keyframes heroSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    /* 图片加载动画 */
+    animation: imageLoad 1s ease-out 0.7s both;
+}
+
+@keyframes imageLoad {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+.hero-title {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    background: linear-gradient(135deg, #0F6DE6 0%, #0A55B8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    /* 标题渐变动画 */
+    animation: titleGradient 1.5s ease-out 0.6s both;
+}
+
+@keyframes titleGradient {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+        background-position: 0% 50%;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        background-position: 100% 50%;
+    }
+}
+
+.hero-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    /* 副标题延迟出现 */
+    animation: fadeIn 0.8s ease-out 0.8s both;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    /* 徽章容器动画 */
+    animation: fadeIn 0.8s ease-out 1s both;
+}
+
+.badge {
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    /* 徽章逐个出现 */
+    animation: badgePop 0.4s ease-out both;
+}
+
+.badge:nth-child(1) { animation-delay: 1.1s; }
+.badge:nth-child(2) { animation-delay: 1.2s; }
+.badge:nth-child(3) { animation-delay: 1.3s; }
+
+@keyframes badgePop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.badge-link {
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.badge-link:hover {
+    background: rgba(15, 109, 230, 0.15);
+    color: #0F6DE6;
+}
+
+/* ==================== 卡片样式 ==================== */
+.card {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    /* 卡片交错出现 */
+    animation: cardSlideUp 0.6s ease-out both;
+}
+
+.card:nth-child(1) { animation-delay: 0.7s; }
+.card:nth-child(2) { animation-delay: 0.9s; }
+.card:nth-child(3) { animation-delay: 1.1s; }
+
+@keyframes cardSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+}
+
+.card p {
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 12px;
+}
+
+.card p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==================== 组件网格 ==================== */
+.component-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.component-item {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    /* 组件项动画 */
+    animation: componentPop 0.5s ease-out both;
+}
+
+.component-item:nth-child(1) { animation-delay: 1.2s; }
+.component-item:nth-child(2) { animation-delay: 1.3s; }
+
+@keyframes componentPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.component-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.component-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+    /* 图标旋转动画 */
+    animation: iconRotate 0.6s ease-out 1.4s both;
+}
+
+@keyframes iconRotate {
+    0% {
+        transform: rotate(-180deg) scale(0);
+    }
+    100% {
+        transform: rotate(0) scale(1);
+    }
+}
+
+.component-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.component-item p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+/* ==================== 对比表格 ==================== */
+.comparison-table-wrapper {
+    overflow-x: auto;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    /* 表格淡入动画 */
+    animation: fadeIn 0.8s ease-out 1.4s both;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.comparison-table th {
+    background: rgba(15, 109, 230, 0.1);
+    font-weight: 600;
+    color: #0F6DE6;
+}
+
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table tr:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* ==================== 下载按钮 ==================== */
+.download-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin: 32px 0;
+    /* 按钮区域动画 */
+    animation: buttonAreaPop 0.6s ease-out 1.5s both;
+}
+
+@keyframes buttonAreaPop {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pill-button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* 按钮逐个出现 */
+    animation: buttonPop 0.4s ease-out both;
+}
+
+.pill-button:nth-child(1) { animation-delay: 1.6s; }
+.pill-button:nth-child(2) { animation-delay: 1.7s; }
+
+@keyframes buttonPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.pill-button.primary {
+    background: linear-gradient(135deg, #0F6DE6 0%, #0A55B8 100%);
+    color: white;
+}
+
+.pill-button.secondary {
+    background: rgba(255, 255, 255, 0.8);
+    color: #1a1a1a;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.pill-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.pill-button.primary:hover {
+    box-shadow: 0 8px 24px rgba(15, 109, 230, 0.4);
+}
+
+.pill-button:active {
+    transform: translateY(-1px);
+}
+
+/* ==================== 页脚 ==================== */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    font-size: 13px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    margin-top: 20px;
+    /* 页脚淡入 */
+    animation: fadeIn 0.8s ease-out 1.8s both;
+}
+
+/* ==================== 音乐播放器 ==================== */
+.music-player {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 8px 12px;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+    /* 音乐播放器滑入动画 */
+    animation: playerSlideIn 0.5s ease-out 2s both;
+}
+
+@keyframes playerSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.music-toggle {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.volume-control {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.music-player:hover .volume-control,
+.music-player.volume-visible .volume-control {
+    width: 100px;
+}
+
+.volume-slider {
+    width: 100px;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #0F6DE6;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: #0F6DE6;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.volume-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* ==================== 调整大小手柄 ==================== */
+.resize-handle {
+    position: absolute;
+    z-index: 10;
+}
+
+.resize-se {
+    width: 20px;
+    height: 20px;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+    border-radius: 0 0 12px 0;
+}
+
+.resize-e {
+    width: 8px;
+    height: calc(100% - 48px);
+    right: 0;
+    top: 48px;
+    cursor: e-resize;
+}
+
+.resize-s {
+    width: 100%;
+    height: 8px;
+    bottom: 0;
+    left: 0;
+    cursor: s-resize;
+}
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+        overflow: hidden;
+        align-items: flex-start;
+    }
+
+    .main-container {
+        width: 100%;
+        height: 100vh;
+        min-width: unset;
+        min-height: unset;
+        border-radius: 0;
+        resize: none;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        /* 移动端简化动画 */
+        animation: containerAppearMobile 0.4s ease-out forwards;
+    }
+
+    @keyframes containerAppearMobile {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .title-bar {
+        border-radius: 0;
+        cursor: default;
+    }
+
+    .content-area {
+        padding: 16px;
+        padding-bottom: 80px;
+    }
+
+    .component-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-table {
+        font-size: 12px;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: 8px 10px;
+    }
+
+    .download-section {
+        flex-direction: column;
+    }
+
+    .pill-button {
+        width: 100%;
+    }
+
+    /* 移动端音乐播放器 - 始终显示音量控制 */
+    .music-player {
+        bottom: max(16px, env(safe-area-inset-bottom));
+        right: 16px;
+        left: 16px;
+        justify-content: center;
+        border-radius: 50px;
+        gap: 16px;
+    }
+
+    .music-player .music-toggle {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+
+    .music-player .volume-control {
+        width: auto;
+        flex: 1;
+        max-width: 200px;
+    }
+
+    .music-player .volume-slider {
+        width: 100%;
+    }
+
+    /* 移动端减少动画复杂度 */
+    .card,
+    .component-item,
+    .pill-button {
+        animation-duration: 0.4s;
+    }
+
+    /* 隐藏调整大小手柄 */
+    .resize-handle {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 24px;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .card h2 {
+        font-size: 18px;
+    }
+
+    .music-player {
+        bottom: 12px;
+        right: 12px;
+        left: 12px;
+        padding: 6px 10px;
+        gap: 12px;
+    }
+
+    .music-player .music-toggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .music-player .volume-control {
+        max-width: 160px;
+    }
+}
+
+/* ==================== 性能优化 ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
