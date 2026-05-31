@@ -113,7 +113,7 @@ closeBtn.addEventListener('click', () => {
     
     setTimeout(() => {
         // 关闭标签页
-        window.close();
+        window.open('', '_self').close();
         
         // 备用方案：如果无法关闭，则隐藏容器
         setTimeout(() => {
